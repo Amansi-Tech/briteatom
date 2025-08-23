@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Header from './Header';
 import Hero from './Hero';
 import BotModal from './BotModal';
+import Footer from './Footer'
 
 export default function ClientRootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -34,6 +35,7 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
 
       {/* Page content */}
       {children}
+      <Footer />
     </>
   );
 }

@@ -1,101 +1,115 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
 
-const Pricing = () => {
+const cards = [
+  {
+    title: 'Mission',
+    text: 'To empower seamless digital connection through innovative automation — making communication effortless for businesses, communities, and individuals.',
+  },
+  {
+    title: 'Vision',
+    text: 'To be the go-to automation company that helps everyone—from tiny startups to large organizations—navigate the digital world smarter, not harder.',
+  },
+  {
+    title: 'Value',
+    text: 'User-centric by design. Tech should serve people, not the other way around. Keep it simple — and make it powerful.',
+  },
+];
+
+export default function AboutSection() {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+  const x = useMotionValue(0);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (carouselRef.current) {
+        setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+
+  // Snap to nearest card on drag end
+  const handleDragEnd = (_: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+    if (!carouselRef.current) return;
+    const cardWidth = carouselRef.current.offsetWidth * 0.8; // approx card width with gap
+    const nearest = Math.round(x.get() / cardWidth) * cardWidth;
+    const clamped = Math.max(Math.min(nearest, 0), -width);
+    x.set(clamped);
+  };
+
   return (
-    <>
-      {/* Pricing Section */}
-      <section
-        id="pricing"
-        className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0"
-        style={{
-          backgroundImage: `linear-gradient(to bottom right, rgba(173, 216, 230, 0.75), rgba(54, 108, 124, 0.55)), url('/3d-rendering-biorobots-concept.jpg')`,
-        }}
-      >
-        <div className="max-w-6xl w-full text-center py-16">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-3xl sm:text-4xl font-bold text-white mb-12"
-          >
-            Our Pricing
-          </motion.h2>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1rem] lg:gap-16 place-items-center">
-            {/* Free Trial */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-blue-400 p-8 text-center w-full max-w-sm"
-            >
-              <h3 className="text-xl font-bold text-blue-500 mb-2">Free Trial</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-base">3 Days Access</p>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Start with zero commitment</p>
-              <button className="mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-500 transition-all duration-300">
-                Start Trial
-              </button>
-            </motion.div>
-
-            {/* 1 Month Plan */}
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
-              className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-gray-200 dark:border-white/10 p-8 text-center w-full max-w-sm"
-            >
-              <h3 className="text-xl font-bold text-blue-600 mb-2">1 Month</h3>
-              <p className="text-gray-600 dark:text-gray-300 text-base">$5 only</p>
-              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Great for testing and short-term use</p>
-              <button className="mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-500 transition-all duration-300">
-                Choose Plan
-              </button>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <motion.div
-        className="bg-blue-600 py-16 px-6 text-center mt-12 mx-4 rounded-xl shadow-lg"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7 }}
-      >
-        <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          Say hello to a stress-free life 😊
-        </h3>
-        <p className="text-white mb-6 text-base sm:text-lg">
-          Join over 1 million users and level‑up with next‑generation Tech.
-        </p>
-        <a
-          href="#"
-          className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition"
+    <div
+      id="about"
+      className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0 relative"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom right, rgba(24,141,236,0.42), rgba(35,150,185,0.62)), url('/side-view-smiley-friends-with-smartphone.jpg')",
+      }}
+    >
+      <div className="relative z-10 mt-12 mb-[2rem]">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
         >
-          Get Started
-        </a>
-      </motion.div>
+          About Us
+        </motion.h1>
 
-      {/* Video Section */}
-      <div className="py-16 px-4 sm:px-6 lg:px-20">
-        <div className="mb-8 text-center text-xl font-semibold text-blue-800">
-          Why You Need a Chatbot
+        {/* Desktop Layout */}
+        <div className="hidden md:flex justify-center items-stretch gap-8">
+          {cards.map((card, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.2 }}
+              className="bg-white p-6 sm:p-8 w-full md:w-80 text-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <h2 className="font-bold text-xl sm:text-2xl text-center mb-4 text-blue-600">
+                {card.title}
+              </h2>
+              <p className="text-gray-700 text-sm sm:text-base text-center mb-6">{card.text}</p>
+            </motion.div>
+          ))}
         </div>
-        <div className="relative w-full max-w-5xl mx-auto aspect-w-16 aspect-h-9">
-          <iframe
-            src="https://www.youtube.com/embed/sNkEy48ZwpQ"
-            title="Top 9 reasons why you should use a Chatbot"
-            frameBorder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full rounded-lg shadow-lg"
-          />
-        </div>
+
+        {/* Mobile Carousel */}
+        <motion.div ref={carouselRef} className="md:hidden overflow-hidden cursor-grab">
+          <motion.div
+            className="flex gap-4"
+            drag="x"
+            style={{ x }}
+            dragConstraints={{ left: -width, right: 0 }}
+            onDragEnd={handleDragEnd}
+            whileTap={{ cursor: 'grabbing' }}
+          >
+            {cards.map((card, idx) => (
+              <motion.div
+                key={idx}
+                className="w-[80vw] sm:w-[75vw] flex-shrink-0 bg-white p-6 rounded-xl shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.2 }}
+              >
+                <h2 className="font-bold text-xl sm:text-2xl mb-4 text-blue-600 text-center">
+                  {card.title}
+                </h2>
+                <p className="text-gray-700 text-sm sm:text-base text-center">{card.text}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
-};
-
-export default Pricing;
+}
