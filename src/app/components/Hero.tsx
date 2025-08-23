@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import AboutSection from './AboutSection';
@@ -10,10 +11,10 @@ interface HeroProps {
   setModalOpen?: (open: boolean) => void;
 }
 
-const Hero = ({ setModalOpen }: HeroProps) => {
-  const openModal = () => {
+const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
+  const openModal = useCallback(() => {
     if (setModalOpen) setModalOpen(true);
-  };
+  }, [setModalOpen]);
 
   return (
     <>
@@ -37,8 +38,8 @@ const Hero = ({ setModalOpen }: HeroProps) => {
               Brite-Atom
             </h1>
             <p className="text-white text-base sm:text-lg md:text-xl mt-4 max-w-xl mx-auto md:mx-0 leading-relaxed">
-              Meet your smart WhatsApp chatbot assistant — fast, friendly, and focused on you.
-              Whether you're a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
+              Meet your smart WhatsApp chatbot assistant — fast, friendly, and focused on you.{' '}
+              Whether you&apos;re a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
@@ -59,11 +60,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
           >
             <motion.div
               animate={{ y: [0, -15, 0] }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               className="relative z-10"
             >
               <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black/20 rounded-full blur-md z-0" />
@@ -77,7 +74,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
                 priority
               />
               <div
-                className="absolute z-20 w-[14px] h-[14px] bg-cyan-400 rounded-full blink-dot"
+                className="absolute z-20 w-[14px] h-[14px] bg-cyan-400 rounded-full animate-bounce"
                 style={{ top: '42%', left: '49%' }}
               />
             </motion.div>
@@ -85,7 +82,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
         </div>
       </div>
 
-      {/* Sections */}
+      {/* Page Sections */}
       <AboutSection />
       <Features />
       <Pricing />
