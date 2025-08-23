@@ -1,6 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   images: {
     remotePatterns: [
       {
@@ -8,9 +9,6 @@ const nextConfig: NextConfig = {
         hostname: 'i.pravatar.cc',
       },
     ],
-    animation: {
-      'spin-slow': 'spin 3s linear infinite',
-    },
   },
 };
 
