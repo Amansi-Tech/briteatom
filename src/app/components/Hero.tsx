@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import AboutSection from './AboutSection';
 import Pricing from './Pricing';
 import Features from './Features';
@@ -13,7 +12,9 @@ interface HeroProps {
 
 const Hero = ({ setModalOpen }: HeroProps) => {
   const openModal = () => {
-    if (setModalOpen) setModalOpen(true);
+    if (setModalOpen) {
+      setModalOpen(true);
+    }
   };
 
   return (
@@ -22,11 +23,12 @@ const Hero = ({ setModalOpen }: HeroProps) => {
         id="home"
         className="min-h-screen w-full flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `linear-gradient(to bottom right, rgba(173, 216, 230, 0.65), rgba(54, 108, 124, 0.38)), url('/young-man-laid-couch-playing.jpg')`,
+          backgroundImage:
+            "linear-gradient(to bottom right, rgba(173, 216, 230, 0.65), rgba(54, 108, 124, 0.38)), url('/young-man-laid-couch-playing.jpg')",
         }}
       >
         <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20 max-w-6xl w-full py-12">
-          {/* Left Text Section */}
+          {/* Left Text */}
           <motion.div
             className="text-center md:text-left px-4 md:px-0"
             initial={{ opacity: 0, x: -50 }}
@@ -50,7 +52,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
             </div>
           </motion.div>
 
-          {/* Robot Image with float effect */}
+          {/* Robot Image Floating */}
           <motion.div
             className="relative w-[250px] sm:w-[320px] md:w-[400px]"
             initial={{ opacity: 0, y: 50 }}
@@ -85,6 +87,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
         </div>
       </div>
 
+      {/* Sections */}
       <AboutSection />
       <Features />
       <Pricing />

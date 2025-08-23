@@ -19,7 +19,7 @@ export default function ClientRoot({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Header onOpenModal={handleOpenModal} />
-      {isHomePage && <Hero onOpenModal={handleOpenModal} />}
+      {isHomePage && <Hero setModalOpen={setIsModalOpen} />}
       <BotModal isOpen={isModalOpen} onClose={handleCloseModal} />
       {children}
     </>

@@ -7,9 +7,8 @@ import { LogOut, CreditCard, UserCircle } from 'lucide-react';
 
 const plans = [
   { title: '1 Month', price: '$5', description: 'Try BriteAtom for a month' },
-  { title: '5 Months', price: '$25', description: 'Ideal for short-term projects' },
-  { title: '8 Months', price: '$40', description: 'Best for growing teams' },
-  { title: '12 Months', price: '$60', description: 'Most popular, full access' },
+  { title: 'Free three days', price: '$...', description: 'Ideal for testing the bot' },
+
 ];
 
 export default function DashboardPage() {

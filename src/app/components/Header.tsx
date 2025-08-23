@@ -35,7 +35,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 py-2">
-        <div className="flex items-center gap-[1.5rem] ml-[1rem] bg-blue-600">
+        <div className="flex items-center gap-[1.5rem] ml-[1rem] bg-blue-600 p-[10px] rounded-[5px]">
           <Atom size={36} strokeWidth={2.5} className="text-white animate-spin-slow" />
           <h1 className="text-[22px] font-bold leading-tight text-white">BriteAtom</h1>
         </div>
