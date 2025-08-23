@@ -37,8 +37,8 @@ const Hero = ({ setModalOpen }: HeroProps) => {
               Brite-Atom
             </h1>
             <p className="text-white text-base sm:text-lg md:text-xl mt-4 max-w-xl mx-auto md:mx-0 leading-relaxed">
-              Meet your smart WhatsApp chatbot assistant — fast, friendly, and focused on you.
-              Whether you're a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
+              Meet your smart WhatsApp chatbot assistant — fast, friendly, and focused on you.{' '}
+              Whether you&apos;re a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
@@ -66,8 +66,11 @@ const Hero = ({ setModalOpen }: HeroProps) => {
               }}
               className="relative z-10"
             >
+              {/* Shadow & Gradient */}
               <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black/20 rounded-full blur-md z-0" />
               <div className="absolute inset-0 bg-gradient-radial from-blue-300 via-blue-100 to-transparent rounded-full blur-2xl z-0" />
+
+              {/* Robot */}
               <Image
                 width={400}
                 height={400}
@@ -76,8 +79,10 @@ const Hero = ({ setModalOpen }: HeroProps) => {
                 className="relative w-full h-auto"
                 priority
               />
+
+              {/* Animated Dot */}
               <div
-                className="absolute z-20 w-[14px] h-[14px] bg-cyan-400 rounded-full blink-dot"
+                className="absolute z-20 w-[14px] h-[14px] bg-cyan-400 rounded-full animate-bounce"
                 style={{ top: '42%', left: '49%' }}
               />
             </motion.div>
@@ -85,7 +90,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
         </div>
       </div>
 
-      {/* Sections */}
+      {/* Page Sections */}
       <AboutSection />
       <Features />
       <Pricing />
