@@ -2,7 +2,11 @@
 
 import Hero from './components/Hero';
 
-export default function Home({ isModalOpen, setIsModalOpen }: any) {
-  return <Hero isOpen={isModalOpen} setIsOpen={setIsModalOpen} />;
+interface HomeProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (open: boolean) => void;
 }
 
+export default function Home({ isModalOpen, setIsModalOpen }: HomeProps) {
+  return <Hero setModalOpen={setIsModalOpen} />;
+}

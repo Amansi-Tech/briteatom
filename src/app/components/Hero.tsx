@@ -40,7 +40,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
             </h1>
             <p className="text-white text-base sm:text-lg md:text-xl mt-4 max-w-xl mx-auto md:mx-0 leading-relaxed">
               Meet your smart WhatsApp chatbot assistant — fast, friendly, and focused on you.
-              Whether you're a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
+              Whether you&rsquo;re a business or creator, BriteAtom automates the boring stuff, giving you more time for what matters.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
@@ -87,7 +87,7 @@ const Hero = ({ setModalOpen }: HeroProps) => {
         </div>
       </div>
 
-      {/* Sections */}
+      {/* Additional Sections */}
       <AboutSection />
       <Features />
       <Pricing />
