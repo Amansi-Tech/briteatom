@@ -12,13 +12,15 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
+  // Stable modal open function
   const openModal = useCallback(() => {
-    if (setModalOpen) setModalOpen(true);
+    setModalOpen?.(true);
   }, [setModalOpen]);
 
   return (
     <>
-      <div
+      {/* Hero Section */}
+      <section
         id="home"
         className="min-h-screen w-full flex items-center justify-center px-4 bg-cover bg-center bg-no-repeat"
         style={{
@@ -43,6 +45,8 @@ const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
               <button
+                type="button"
+                aria-label="Open chatbot modal"
                 onClick={openModal}
                 className="bg-white text-blue-600 font-bold text-sm px-6 py-2 rounded hover:bg-transparent hover:text-white border border-white transition-all duration-300"
               >
@@ -51,7 +55,7 @@ const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
             </div>
           </motion.div>
 
-          {/* Robot Image Floating */}
+          {/* Right Image */}
           <motion.div
             className="relative w-[250px] sm:w-[320px] md:w-[400px]"
             initial={{ opacity: 0, y: 50 }}
@@ -63,16 +67,21 @@ const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               className="relative z-10"
             >
+              {/* Shadow & Gradient */}
               <div className="absolute bottom-[-20px] left-1/2 -translate-x-1/2 w-[60%] h-[20px] bg-black/20 rounded-full blur-md z-0" />
               <div className="absolute inset-0 bg-gradient-radial from-blue-300 via-blue-100 to-transparent rounded-full blur-2xl z-0" />
+
+              {/* Robot Image */}
               <Image
+                src="/robot-2-removebg-preview.png"
+                alt="Friendly robot assistant illustration"
                 width={400}
                 height={400}
-                src="/robot-2-removebg-preview.png"
-                alt="Robot assistant"
                 className="relative w-full h-auto"
                 priority
               />
+
+              {/* Animated Dot */}
               <div
                 className="absolute z-20 w-[14px] h-[14px] bg-cyan-400 rounded-full animate-bounce"
                 style={{ top: '42%', left: '49%' }}
@@ -80,9 +89,9 @@ const Hero: React.FC<HeroProps> = ({ setModalOpen }) => {
             </motion.div>
           </motion.div>
         </div>
-      </div>
+      </section>
 
-      {/* Page Sections */}
+      {/* Other Page Sections */}
       <AboutSection />
       <Features />
       <Pricing />
