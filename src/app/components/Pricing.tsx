@@ -32,7 +32,7 @@ const Pricing = () => {
               transition={{ duration: 0.3 }}
               className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-blue-400 p-8 text-center w-full max-w-sm"
             >
-              <h3 className="text-xl font-bold text-blue-500 mb-2">Free Tria</h3>
+              <h3 className="text-xl font-bold text-blue-500 mb-2">Free Trial</h3>
               <p className="text-gray-600 dark:text-gray-300 text-base">3 Days Access</p>
               <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Start with zero commitment</p>
               <button className="mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-500 transition-all duration-300">
@@ -64,9 +64,9 @@ const Pricing = () => {
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7 }}
       >
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+        <h3 className="text-3xl sm:text-4xl font-bold text-white mb-4">
           Say hello to a stress-free life 😊
-        </h2>
+        </h3>
         <p className="text-white mb-6 text-base sm:text-lg">
           Join over 1 million users and level‑up with next‑generation Tech.
         </p>
@@ -80,7 +80,7 @@ const Pricing = () => {
 
       {/* Video Section */}
       <div className="py-16 px-4 sm:px-6 lg:px-20">
-        <div className="mb-8 text-center text-xl font-semibold text-gray-800">
+        <div className="mb-8 text-center text-xl font-semibold text-blue-800">
           Why You Need a Chatbot
         </div>
         <div className="relative w-full max-w-5xl mx-auto aspect-w-16 aspect-h-9">

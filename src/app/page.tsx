@@ -1,5 +1,5 @@
-import Hero from './components/Hero';
 
-export default function Home() {
-  return <Hero />; // Hero gets modal props from ClientRootLayout
+export default function HomePage() {
+
+  return <></>;
 }

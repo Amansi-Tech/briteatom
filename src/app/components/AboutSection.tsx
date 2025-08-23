@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-
+import { useRef, useState, useEffect } from 'react';
 
 const cards = [
   {
@@ -19,88 +19,98 @@ const cards = [
 ];
 
 export default function AboutSection() {
-  return (
-    <>
-      <div
-        id="about"
-        className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0 relative"
-        style={{
-          backgroundImage:
-            `linear-gradient(to bottom right, rgba(24,141,236,0.42), rgba(35,150,185,0.62)), url('/side-view-smiley-friends-with-smartphone.jpg')`,
-        }}
-      >
-        <div className="relative z-10 mt-12 mb-[2rem]">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
-          >
-            About Us
-          </motion.h1>
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
 
-          <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
+  useEffect(() => {
+    if (carouselRef.current) {
+      setWidth(
+        carouselRef.current.scrollWidth - carouselRef.current.offsetWidth
+      );
+    }
+    const handleResize = () => {
+      if (carouselRef.current) {
+        setWidth(
+          carouselRef.current.scrollWidth - carouselRef.current.offsetWidth
+        );
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div
+      id="about"
+      className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0 relative"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom right, rgba(24,141,236,0.42), rgba(35,150,185,0.62)), url('/side-view-smiley-friends-with-smartphone.jpg')",
+      }}
+    >
+      <div className="relative z-10 mt-12 mb-[2rem]">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-12"
+        >
+          About Us
+        </motion.h1>
+
+        {/* Desktop: Flex row */}
+        <div className="hidden md:flex justify-center items-stretch gap-8">
+          {cards.map((card, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: idx * 0.2 }}
+              className="bg-white p-6 sm:p-8 w-full md:w-80 text-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <h2 className="font-bold text-xl sm:text-2xl text-center mb-4 text-blue-600">
+                {card.title}
+              </h2>
+              <p className="text-gray-700 text-sm sm:text-base text-center mb-6">
+                {card.text}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Mobile: Swipeable carousel */}
+        <motion.div
+          ref={carouselRef}
+          className="md:hidden overflow-hidden cursor-grab"
+        >
+          <motion.div
+            className="flex gap-4"
+            drag="x"
+            dragConstraints={{ right: 0, left: -width }}
+            whileTap={{ cursor: 'grabbing' }}
+          >
             {cards.map((card, idx) => (
               <motion.div
                 key={idx}
-                initial={{ opacity: 0, y: 30 }}
+                className="min-w-[250px] sm:min-w-[300px] bg-white p-6 rounded-xl shadow-lg flex-shrink-0"
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.2 }}
-                className="bg-white p-6 sm:p-8 w-full md:w-80 text-gray-800 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between"
               >
-                <h2 className="font-bold text-xl sm:text-2xl text-center mb-4 text-blue-600">
+                <h2 className="font-bold text-xl sm:text-2xl mb-2 text-blue-600 text-center">
                   {card.title}
                 </h2>
-                <p className="text-gray-700 text-sm sm:text-base text-center mb-6">
+                <p className="text-gray-700 text-sm sm:text-base text-center">
                   {card.text}
                 </p>
-
-                <motion.a
-                  href="#"
-                  className="relative overflow-hidden bg-blue-600 text-white font-semibold text-sm sm:text-base px-4 py-2 rounded-lg inline-flex items-center justify-center mx-auto"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className="relative z-10 flex items-center gap-2">
-                    Learn More
-                    <motion.span
-                      whileHover={{ y: [0, -3, 0] }}
-                      transition={{
-                        duration: 0.6,
-                        repeat: Infinity,
-                        repeatType: 'loop',
-                        ease: 'easeInOut',
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </motion.span>
-                  </span>
-                  <motion.div
-                    className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400 to-blue-500 opacity-0"
-                    animate={{ opacity: [0.2, 0.5, 0.2] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  />
-                </motion.a>
               </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-
-     
-
-      
-    </>
+    </div>
   );
 }

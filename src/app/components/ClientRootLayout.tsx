@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
 import { usePathname } from 'next/navigation';
-
+import { useState } from 'react';
 import Header from './Header';
 import Hero from './Hero';
 import BotModal from './BotModal';
@@ -14,29 +13,26 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleStartTrial = () => {
-    alert('🎉 Free 3-Day Trial Activated!');
-    handleCloseModal();
-  };
-
   const isHomePage = pathname === '/' || pathname === '/home';
 
   return (
     <>
-      {/* Header always visible */}
       <Header onOpenModal={handleOpenModal} />
 
-      {/* Hero only on home page */}
+      {/* Only render Hero on home page */}
       {isHomePage && <Hero setModalOpen={setIsModalOpen} />}
 
       {/* Bot Modal */}
       <BotModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onStartTrial={handleStartTrial}
+        onStartTrial={() => {
+          console.log('Trial started');
+          setIsModalOpen(false);
+        }}
       />
 
-      {/* Render page content */}
+      {/* Page content */}
       {children}
     </>
   );
