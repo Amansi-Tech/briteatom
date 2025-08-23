@@ -98,7 +98,7 @@ export default function AboutSection() {
             {cards.map((card, idx) => (
               <motion.div
                 key={idx}
-                className="w-[80vw] sm:w-[75vw] flex-shrink-0 bg-white p-6 rounded-xl shadow-lg"
+                className="w-[80vw] sm:w-[75vw] sm:h-[30rem] flex-shrink-0 bg-white p-6 rounded-xl shadow-lg"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

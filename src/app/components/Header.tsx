@@ -115,7 +115,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
                   <button
                     key={id}
                     onClick={() => scrollToSection(id)}
-                    className="text-gray-800 dark:text-gray-200 font-medium text-lg hover:text-blue-600 transition text-left"
+                    className="text-gray-800 dark:text-gray-200 font-medium text-lg hover:text-blue-600 transition text-left pl-[3px]"
                   >
                     {id.charAt(0).toUpperCase() + id.slice(1)}
                   </button>
