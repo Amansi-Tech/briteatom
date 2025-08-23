@@ -20,21 +20,23 @@ export default function WelcomePopup() {
     <AnimatePresence>
       {show && (
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 30 }}
+          exit={{ opacity: 0, y: 40 }}
           transition={{ duration: 0.5 }}
-          className="fixed bottom-5 right-5 z-50 bg-white dark:bg-gray-800 shadow-lg rounded-lg px-6 py-4 border border-blue-600 dark:border-white/10 max-w-sm w-full"
+          className="fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-800 shadow-2xl rounded-2xl px-8 py-6 border border-blue-600 dark:border-white/10 max-w-md w-full"
         >
-          <div className="flex justify-between items-start">
-            <div>
-              <h2 className="text-blue-600 dark:text-white font-bold text-lg">👋 Welcome to BriteAtom</h2>
-              <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Glad to have you here. Let’s explore the power of smart automation!
+          <div className="flex justify-between items-start space-x-4">
+            <div className="flex-1">
+              <h2 className="text-blue-600 dark:text-white font-extrabold text-xl mb-1">
+                👋 Welcome to BriteAtom
+              </h2>
+              <p className="text-gray-700 dark:text-gray-300 text-base leading-relaxed">
+                We're excited to have you here! Dive in and explore the power of smart automation with your personal WhatsApp assistant.
               </p>
             </div>
-            <button onClick={() => setShow(false)} className="ml-4 text-blue-600 dark:text-white">
-              <X size={18} />
+            <button onClick={() => setShow(false)} className="text-blue-600 dark:text-white mt-1">
+              <X size={22} />
             </button>
           </div>
         </motion.div>

@@ -1,10 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Atom, Sun, Moon, User, LogOut, Bell } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Atom } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 interface HeaderProps {
   onOpenModal: () => void;
@@ -12,19 +10,13 @@ interface HeaderProps {
 
 export default function Header({ onOpenModal }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [avatarOpen, setAvatarOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', darkMode);
-  }, [darkMode]);
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
@@ -36,126 +28,90 @@ export default function Header({ onOpenModal }: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
-        scrolled ? 'bg-white/60 dark:bg-gray-900/60 shadow' : 'bg-white/30 dark:bg-gray-800/30'
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/60 shadow backdrop-blur text-blue-600'
+          : 'bg-blue-500 pt-[1px] pb-[1px] text-white'
       }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <Atom className="text-blue-600 dark:text-white animate-spin-slow" size={28} />
-          <span className="text-xl font-bold text-blue-600 dark:text-white">BriteAtom</span>
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 py-2">
+        <div className="flex items-center gap-[1.5rem] ml-[1rem] bg-blue-600">
+          <Atom size={36} strokeWidth={2.5} className="text-white animate-spin-slow" />
+          <h1 className="text-[22px] font-bold leading-tight text-white">BriteAtom</h1>
         </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 font-medium text-blue-600 dark:text-white">
-          {['home', 'about', 'pricing', 'services'].map((item) => (
-            <button key={item} onClick={() => scrollToSection(item)} className="hover:opacity-80">
-              {item.charAt(0).toUpperCase() + item.slice(1)}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-6 font-medium">
+          {['home', 'about', 'pricing', 'services'].map((id) => (
+            <button
+              key={id}
+              onClick={() => scrollToSection(id)}
+              className="hover:scale-90 transform transition duration-300 font-bold hover:text-gray-200"
+            >
+              {id.charAt(0).toUpperCase() + id.slice(1)}
             </button>
           ))}
-          <Link href="/dashboard">Dashboard</Link>
         </nav>
 
-        {/* Right-side */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Desktop Buttons */}
+        <div className="hidden md:block">
           <button
             onClick={onOpenModal}
-            className="bg-blue-600 text-white font-bold text-sm px-4 py-2 rounded hover:bg-blue-700 transition"
+            className="bg-white text-blue-600 ml-[5px] mr-[16px] font-bold text-[15px] px-4 py-2 rounded hover:bg-transparent hover:text-white border border-white transition-all duration-300"
           >
-            Get Started
+            Get started
           </button>
+
           <button
             onClick={onOpenModal}
-            className="border border-blue-600 text-blue-600 dark:text-white dark:border-white px-4 py-2 rounded text-sm hover:bg-blue-50 dark:hover:bg-white/10"
+            className="bg-transparent border border-white text-white text-[15px] font-bold px-4 py-2 rounded hover:bg-white hover:text-blue-600 transition-all duration-300"
           >
-            Sign In
+            Sign-in
           </button>
-
-          <button onClick={() => setDarkMode(!darkMode)} className="text-blue-600 dark:text-white">
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-          </button>
-
-          {/* 🔔 Notification Bell */}
-          <div className="relative cursor-pointer">
-            <Bell className="text-blue-600 dark:text-white" size={20} />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full" />
-          </div>
-
-          {/* 🧊 Avatar dropdown */}
-          <div className="relative">
-            <Image
-              src="https://i.pravatar.cc/100?img=12"
-              alt="User Avatar"
-              width={36}
-              height={36}
-              className="rounded-full cursor-pointer border-2 border-blue-500"
-              onClick={() => setAvatarOpen(!avatarOpen)}
-            />
-            <AnimatePresence>
-              {avatarOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.25 }}
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 shadow-lg rounded-lg z-50 overflow-hidden"
-                >
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700"
-                  >
-                    <User size={16} /> Profile
-                  </Link>
-                  <button className="flex w-full items-center gap-2 px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <LogOut size={16} /> Logout
-                  </button>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden text-blue-600 dark:text-white">
+        <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Slide-in Mobile Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg transform ${
-          menuOpen ? 'translate-x-0' : 'translate-x-full'
-        } transition-transform duration-300 ease-in-out z-40`}
-      >
-        <div className="flex flex-col items-start p-6 gap-4">
-          <button onClick={() => scrollToSection('home')}>Home</button>
-          <button onClick={() => scrollToSection('about')}>About</button>
-          <button onClick={() => scrollToSection('pricing')}>Pricing</button>
-          <button onClick={() => scrollToSection('services')}>Services</button>
-          <Link href="/dashboard">Dashboard</Link>
+      {/* Mobile Menu */}
+      {menuOpen && (
+        <div className="md:hidden px-4 pb-4">
+          <nav className="flex flex-col gap-3 font-medium">
+            {['home', 'about', 'pricing'].map((id) => (
+              <button
+                key={id}
+                onClick={() => scrollToSection(id)}
+                className="hover:text-gray-600 transition"
+              >
+                {id.charAt(0).toUpperCase() + id.slice(1)}
+              </button>
+            ))}
 
-          <button
-            onClick={onOpenModal}
-            className="bg-blue-600 text-white font-bold px-4 py-2 rounded w-full"
-          >
-            Sign Up
-          </button>
-          <button
-            onClick={onOpenModal}
-            className="border border-blue-600 text-blue-600 px-4 py-2 rounded w-full"
-          >
-            Sign In
-          </button>
+            <Link
+              href="/dashboard"
+              className="hover:scale-90 transform transition duration-300 font-bold hover:text-gray-200"
+            >
+              Dashboard
+            </Link>
 
-          <button
-            onClick={() => setDarkMode(!darkMode)}
-            className="mt-4 flex items-center gap-2 text-sm"
-          >
-            {darkMode ? <Sun size={18} /> : <Moon size={18} />} Toggle Dark Mode
-          </button>
+            <button
+              onClick={onOpenModal}
+              className="mt-2 bg-white text-blue-600 font-bold px-4 py-2 rounded hover:bg-blue-100 transition-all duration-300 w-full text-left"
+            >
+              Sign-up
+            </button>
+            <button
+              onClick={onOpenModal}
+              className="mt-2 bg-transparent border border-blue-600 text-blue-600 font-bold px-4 py-2 rounded hover:bg-blue-100 transition-all duration-300 w-full text-left"
+            >
+              Sign-in
+            </button>
+          </nav>
         </div>
-      </div>
+      )}
     </header>
   );
 }

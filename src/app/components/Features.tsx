@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Pricing from './Pricing';
+
 
 const features = [
   {
@@ -24,75 +24,85 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="w-full bg-gray-50 relative z-10 py-16 px-4 sm:px-6 lg:px-20">
+    <section 
+    id='services'
+    className="w-full bg-gray-50 relative z-10 py-16 px-4 sm:px-6 lg:px-20">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="text-4xl sm:text-5xl font-extrabold text-center text-blue-700 mb-16"
+        className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12"
       >
-        What Makes BriteAtom Shine
+        Our Services
       </motion.h2>
 
-      <div className="relative flex flex-col items-center gap-12 sm:flex-row sm:justify-center sm:gap-6">
-        {features.map((feature, idx) => {
-          const yOffset = idx === 0 ? 'translate-y-0' : idx === 1 ? 'sm:-translate-y-8' : 'sm:translate-y-0 sm:mt-12';
-          const alignment = idx === 0 ? 'self-start' : idx === 1 ? 'self-center' : 'self-end';
+      <div className="flex flex-col md:flex-row justify-center items-stretch gap-8">
+        {features.map((feature, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: idx * 0.2 }}
+            className="bg-white p-6 sm:p-8 w-full md:w-80 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between items-center text-center"
+          >
+            <Image
+              src={feature.icon}
+              alt={feature.title}
+              width={90}
+              height={90}
+              className="rounded-[10px] p-[10px]"
+            />
+            <h3 className="mt-4 text-xl font-semibold text-gray-900">
+              {feature.title}
+            </h3>
+            <p className="mt-2 text-gray-600">{feature.text}</p>
 
-          return (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.3 }}
-              className={`bg-white p-6 sm:p-8 w-full sm:w-72 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center ${yOffset} ${alignment}`}
+            <motion.a
+              href="#"
+              className="relative overflow-hidden bg-blue-600 text-white font-semibold text-sm sm:text-base px-4 py-2 rounded-lg inline-flex items-center justify-center mt-4"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <Image
-                src={feature.icon}
-                alt={feature.title}
-                width={90}
-                height={90}
-                className="rounded-xl mx-auto mb-4"
-              />
-              <h3 className="text-xl font-bold text-blue-600 mb-2">{feature.title}</h3>
-              <p className="text-gray-700 text-sm">{feature.text}</p>
-
-              <motion.a
-                href="#"
-                className="mt-5 inline-block px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition relative"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
+              <span className="relative z-10 flex items-center gap-2">
                 Learn More
-              </motion.a>
-            </motion.div>
-          );
-        })}
+                <motion.span
+                  whileHover={{ y: [0, -3, 0] }}
+                  transition={{
+                    duration: 0.6,
+                    repeat: Infinity,
+                    repeatType: 'loop',
+                    ease: 'easeInOut',
+                  }}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="2"
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </motion.span>
+              </span>
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-400 to-blue-500 opacity-0"
+                animate={{ opacity: [0.2, 0.5, 0.2] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              />
+            </motion.a>
+          </motion.div>
+        ))}
       </div>
+   < br />
 
-      <Pricing />
+   
+  
 
-      <motion.div
-        className="bg-blue-600 py-16 px-6 text-center mt-24 rounded-xl shadow-lg"
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7 }}
-      >
-        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          Say hello to a stress‑free life 😊
-        </h2>
-        <p className="text-white mb-6">
-          Join +1M users upgrading to the next‑generation of automation.
-        </p>
-        <a
-          href="#"
-          className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition"
-        >
-          Get Started
-        </a>
-      </motion.div>
-    </section>
+   <br />
+         </section>
   );
 }

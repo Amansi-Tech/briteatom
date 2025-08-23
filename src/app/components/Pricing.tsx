@@ -1,143 +1,101 @@
 'use client';
 
-import { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Info } from 'lucide-react';
 
-const plans = {
-  monthly: [
-    {
-      name: 'Free Trial',
-      price: 'Free',
-      duration: '3 Days',
-      description: 'Test all features without commitment.',
-      popular: false,
-      features: ['All basic features'],
-    },
-    {
-      name: 'Starter',
-      price: '$5',
-      duration: '1 Month',
-      description: 'Good for small creators or businesses.',
-      popular: true,
-      features: ['WhatsApp Bot', 'Auto Replies', 'Basic Reports'],
-    },
-    {
-      name: 'Pro',
-      price: '$50',
-      duration: '12 Months',
-      description: 'Best value with priority support.',
-      popular: false,
-      features: ['Everything in Starter', 'Priority Support', 'Advanced Analytics'],
-    },
-  ],
-  yearly: [
-    {
-      name: 'Free Trial',
-      price: 'Free',
-      duration: '3 Days',
-      description: 'Test all features without commitment.',
-      popular: false,
-      features: ['All basic features'],
-    },
-    {
-      name: 'Starter',
-      price: '$50',
-      duration: '1 Year',
-      description: 'Save more when you pay yearly.',
-      popular: true,
-      features: ['WhatsApp Bot', 'Auto Replies', 'Basic Reports'],
-    },
-    {
-      name: 'Pro',
-      price: '$90',
-      duration: '1 Year',
-      description: 'Best for agencies & resellers.',
-      popular: false,
-      features: ['All Starter Features', 'Advanced AI', 'Priority Support'],
-    },
-  ],
-};
-
-export default function Pricing() {
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('monthly');
-
+const Pricing = () => {
   return (
-    <section
-      id="pricing"
-      className="min-h-screen w-full bg-gray-50 bg-cover bg-no-repeat py-16 px-4 sm:px-6 lg:px-20"
-      style={{
-        backgroundImage: `linear-gradient(to bottom right, rgba(173, 216, 230, 0.65), rgba(54, 108, 124, 0.38)), url('/3d-rendering-biorobots-concept.jpg')`,
-      }}
-    >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl font-extrabold text-center text-blue-700 mb-10"
+    <>
+      {/* Pricing Section */}
+      <section
+        id="pricing"
+        className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0"
+        style={{
+          backgroundImage: `linear-gradient(to bottom right, rgba(173, 216, 230, 0.75), rgba(54, 108, 124, 0.55)), url('/3d-rendering-biorobots-concept.jpg')`,
+        }}
       >
-        Choose Your Plan
-      </motion.h2>
-
-      <div className="flex justify-center mb-12">
-        <div className="inline-flex items-center space-x-4 border border-blue-600 rounded-full px-4 py-1 bg-white">
-          <button
-            onClick={() => setBillingCycle('monthly')}
-            className={`px-4 py-1 rounded-full text-sm font-semibold ${
-              billingCycle === 'monthly' ? 'bg-blue-600 text-white' : 'text-blue-600'
-            }`}
-          >
-            Monthly
-          </button>
-          <button
-            onClick={() => setBillingCycle('yearly')}
-            className={`px-4 py-1 rounded-full text-sm font-semibold ${
-              billingCycle === 'yearly' ? 'bg-blue-600 text-white' : 'text-blue-600'
-            }`}
-          >
-            Yearly
-          </button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {plans[billingCycle].map((plan, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 40 }}
+        <div className="max-w-6xl w-full text-center py-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.2 }}
-            className={`relative bg-white dark:bg-[#111] p-6 rounded-2xl shadow-lg border hover:scale-105 transition-all duration-300 text-center ${
-              plan.popular ? 'border-blue-600' : 'border-gray-200'
-            }`}
+            transition={{ duration: 0.6 }}
+            className="text-3xl sm:text-4xl font-bold text-white mb-12"
           >
-            {plan.popular && (
-              <span className="absolute top-4 right-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                Popular
-              </span>
-            )}
-            <h3 className="text-xl font-bold text-blue-600">{plan.name}</h3>
-            <p className="text-2xl mt-2 text-gray-900 dark:text-gray-100">{plan.price}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-300">{plan.duration}</p>
-            <p className="mt-3 text-sm text-gray-600 dark:text-gray-400">{plan.description}</p>
+            Our Pricing
+          </motion.h2>
 
-            <ul className="mt-4 text-left space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              {plan.features.map((feature, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <Info size={16} className="text-blue-600" />
-                  {feature}
-                </li>
-              ))}
-            </ul>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[1rem] lg:gap-16 place-items-center">
+            {/* Free Trial */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-blue-400 p-8 text-center w-full max-w-sm"
+            >
+              <h3 className="text-xl font-bold text-blue-500 mb-2">Free Tria</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-base">3 Days Access</p>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Start with zero commitment</p>
+              <button className="mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-500 transition-all duration-300">
+                Start Trial
+              </button>
+            </motion.div>
 
-            <button className="mt-6 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition">
-              {plan.price === 'Free' ? 'Start Trial' : 'Choose Plan'}
-            </button>
-          </motion.div>
-        ))}
+            {/* 1 Month Plan */}
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }}
+              className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-gray-200 dark:border-white/10 p-8 text-center w-full max-w-sm"
+            >
+              <h3 className="text-xl font-bold text-blue-600 mb-2">1 Month</h3>
+              <p className="text-gray-600 dark:text-gray-300 text-base">$5 only</p>
+              <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Great for testing and short-term use</p>
+              <button className="mt-6 bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-500 transition-all duration-300">
+                Choose Plan
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <motion.div
+        className="bg-blue-600 py-16 px-6 text-center mt-12 mx-4 rounded-xl shadow-lg"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.7 }}
+      >
+        <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+          Say hello to a stress-free life 😊
+        </h2>
+        <p className="text-white mb-6 text-base sm:text-lg">
+          Join over 1 million users and level‑up with next‑generation Tech.
+        </p>
+        <a
+          href="#"
+          className="inline-block px-8 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition"
+        >
+          Get Started
+        </a>
+      </motion.div>
+
+      {/* Video Section */}
+      <div className="py-16 px-4 sm:px-6 lg:px-20">
+        <div className="mb-8 text-center text-xl font-semibold text-gray-800">
+          Why You Need a Chatbot
+        </div>
+        <div className="relative w-full max-w-5xl mx-auto aspect-w-16 aspect-h-9">
+          <iframe
+            src="https://www.youtube.com/embed/sNkEy48ZwpQ"
+            title="Top 9 reasons why you should use a Chatbot"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full rounded-lg shadow-lg"
+          />
+        </div>
       </div>
-    </section>
+    </>
   );
-}
+};
+
+export default Pricing;

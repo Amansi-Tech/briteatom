@@ -1,33 +1,27 @@
 'use client';
 
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+
 import Header from './Header';
-import Modal from './Modal';
-import Footer from './Footer';
+import Hero from './Hero';
+import BotModal from './BotModal';
 
-export default function ClientRootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ClientRoot({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'signin' | 'signup' | null>(null);
 
-  const handleOpenModal = (mode: 'signin' | 'signup') => {
-    setModalMode(mode);
-    setIsModalOpen(true);
-  };
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const isHomePage = pathname === '/' || pathname === '/home';
 
   return (
     <>
       <Header onOpenModal={handleOpenModal} />
-
+      {isHomePage && <Hero onOpenModal={handleOpenModal} />}
+      <BotModal isOpen={isModalOpen} onClose={handleCloseModal} />
       {children}
-      {isModalOpen && modalMode && (
-          <Modal mode={modalMode} onClose={() => setIsModalOpen(false)} />
-        )}
-
-        <Footer />
     </>
   );
 }
