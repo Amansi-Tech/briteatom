@@ -3,9 +3,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Pricing = () => {
+interface PricingProps {
+  setModalOpen: (open: boolean) => void;
+}
+
+const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
   return (
     <>
+      {/* Pricing Section */}
       <section
         id="pricing"
         className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0"
@@ -26,10 +31,13 @@ const Pricing = () => {
           </motion.h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-16 w-full place-items-center">
-            {/* Free Trial */}
+            {/* Free Trial Card */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-blue-400 p-6 sm:p-8 text-center w-full max-w-sm flex flex-col justify-between"
             >
               <div>
@@ -39,15 +47,31 @@ const Pricing = () => {
                   Start with zero commitment
                 </p>
               </div>
-              <button className="mt-6 w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300">
-                Start Trial
-              </button>
+              <div className="mt-6 flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300"
+                >
+                  Start Trial
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="w-full text-blue-600 border border-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-300"
+                >
+                  Learn More
+                </button>
+              </div>
             </motion.div>
 
-            {/* 1 Month Plan */}
+            {/* 1 Month Plan Card */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5 }}
               className="bg-white dark:bg-[#111] rounded-2xl shadow-xl border border-gray-200 dark:border-white/10 p-6 sm:p-8 text-center w-full max-w-sm flex flex-col justify-between"
             >
               <div>
@@ -57,9 +81,22 @@ const Pricing = () => {
                   Great for testing and short-term use
                 </p>
               </div>
-              <button className="mt-6 w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300">
-                Choose Plan
-              </button>
+              <div className="mt-6 flex flex-col gap-3">
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-500 transition-all duration-300"
+                >
+                  Choose Plan
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setModalOpen(true)}
+                  className="w-full text-blue-600 border border-blue-600 px-6 py-3 rounded-lg hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-300"
+                >
+                  Learn More
+                </button>
+              </div>
             </motion.div>
           </div>
         </div>
@@ -78,12 +115,13 @@ const Pricing = () => {
         <p className="text-white mb-6 text-base sm:text-lg">
           Join over 1 million users and level‑up with next‑generation Tech.
         </p>
-        <a
-          href="#"
+        <button
+          type="button"
+          onClick={() => setModalOpen(true)}
           className="inline-block px-8 py-3 sm:px-10 sm:py-4 bg-white text-blue-600 font-semibold rounded-lg shadow-lg hover:bg-gray-100 transition"
         >
           Get Started
-        </a>
+        </button>
       </motion.div>
 
       {/* Video Section */}

@@ -1,11 +1,12 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import Hero from './Hero';
+import Pricing from './Pricing'; // import it here
 import BotModal from './BotModal';
-import Footer from './Footer'
+import Footer from './Footer';
 
 export default function ClientRootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -23,6 +24,9 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
       {/* Only render Hero on home page */}
       {isHomePage && <Hero setModalOpen={setIsModalOpen} />}
 
+      {/* Always render Pricing component */}
+      <Pricing setModalOpen={setIsModalOpen} />
+
       {/* Bot Modal */}
       <BotModal
         isOpen={isModalOpen}
@@ -35,6 +39,7 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
 
       {/* Page content */}
       {children}
+
       <Footer />
     </>
   );

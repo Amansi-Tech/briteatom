@@ -9,6 +9,8 @@ interface HeaderProps {
   onOpenModal: () => void;
 }
 
+const navLinks = ['home', 'about', 'pricing', 'services'];
+
 export default function Header({ onOpenModal }: HeaderProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -22,29 +24,28 @@ export default function Header({ onOpenModal }: HeaderProps) {
   }, []);
 
   const handleNavigation = (id: string) => {
-    if (id === 'home') {
-      if (pathname === '/') {
-        // Already on homepage, scroll to top
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        // Navigate to homepage
-        router.push('/');
-      }
-    } else {
-      const section = document.getElementById(id);
-      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    if (pathname !== '/') {
+      // Navigate to home page first
+      router.push(`/?scrollTo=${id}`);
+      setMenuOpen(false);
+      return;
+    }
+
+    // Scroll to section on homepage
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setMenuOpen(false);
   };
 
-  const navLinks = ['home', 'about', 'pricing', 'services'];
-
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300
-        bg-blue-500 text-white
-        ${scrolled ? 'md:bg-blue-500/80 md:backdrop-blur md:shadow' : ''}
-      `}
+      className={`sticky top-0 z-50 transition-all duration-300 bg-blue-500 text-white ${
+        scrolled ? 'md:bg-blue-500/80 md:backdrop-blur md:shadow' : ''
+      }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 px-4 py-2">
         {/* Logo */}
@@ -58,6 +59,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
           {navLinks.map((id) => (
             <button
               key={id}
+              type="button"
               onClick={() => handleNavigation(id)}
               className="px-4 py-2 font-bold rounded hover:bg-white/20 transition duration-300"
             >
@@ -69,12 +71,14 @@ export default function Header({ onOpenModal }: HeaderProps) {
         {/* Desktop Buttons */}
         <div className="hidden md:flex gap-2">
           <button
+            type="button"
             onClick={onOpenModal}
             className="px-6 py-2 font-semibold rounded bg-white text-blue-600 hover:bg-transparent hover:text-white border border-white transition duration-300"
           >
             Get started
           </button>
           <button
+            type="button"
             onClick={onOpenModal}
             className="px-6 py-2 font-semibold rounded bg-transparent border border-white text-white hover:bg-white hover:text-blue-600 transition duration-300"
           >
@@ -83,7 +87,11 @@ export default function Header({ onOpenModal }: HeaderProps) {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="md:hidden text-white" onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          type="button"
+          className="md:hidden text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -92,6 +100,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
       <AnimatePresence>
         {menuOpen && (
           <>
+            {/* Overlay */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 0.5 }}
@@ -100,6 +109,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
               className="fixed inset-0 z-40 bg-black"
             />
 
+            {/* Side Nav */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
@@ -108,6 +118,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
               className="fixed top-0 right-0 h-full w-3/4 max-w-xs bg-white dark:bg-gray-800 shadow-xl z-50 p-6 flex flex-col"
             >
               <button
+                type="button"
                 onClick={() => setMenuOpen(false)}
                 className="self-end text-gray-600 dark:text-gray-200 mb-6 hover:text-gray-900 dark:hover:text-white transition"
                 aria-label="Close menu"
@@ -115,10 +126,12 @@ export default function Header({ onOpenModal }: HeaderProps) {
                 ✕
               </button>
 
+              {/* Navigation Links */}
               <nav className="flex flex-col gap-4 flex-1">
                 {navLinks.map((id) => (
                   <button
                     key={id}
+                    type="button"
                     onClick={() => handleNavigation(id)}
                     className="px-3 py-2 font-medium rounded text-gray-800 dark:text-gray-200 hover:bg-blue-100 dark:hover:bg-gray-700 transition text-left"
                   >
@@ -127,8 +140,10 @@ export default function Header({ onOpenModal }: HeaderProps) {
                 ))}
               </nav>
 
+              {/* Sign-up / Sign-in Buttons */}
               <div className="flex flex-col gap-3 mt-6">
                 <button
+                  type="button"
                   onClick={() => {
                     onOpenModal();
                     setMenuOpen(false);
@@ -138,6 +153,7 @@ export default function Header({ onOpenModal }: HeaderProps) {
                   Sign-up
                 </button>
                 <button
+                  type="button"
                   onClick={() => {
                     onOpenModal();
                     setMenuOpen(false);

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import AboutSection from './AboutSection';
-import Pricing from './Pricing';
 import Features from './Features';
 
 interface HeroProps {
@@ -93,7 +92,6 @@ const Hero = ({ setModalOpen }: HeroProps) => {
       {/* Page Sections */}
       <AboutSection />
       <Features />
-      <Pricing />
     </>
   );
 };
