@@ -10,7 +10,7 @@ interface PricingProps {
 const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
   return (
     <>
-      {/* Pricing Section */}
+  
       <section
         id="pricing"
         className="min-h-screen px-4 sm:px-6 lg:px-20 flex flex-col justify-center items-center bg-cover bg-center bg-no-repeat pt-16 md:pt-0"
@@ -31,7 +31,7 @@ const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
           </motion.h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-16 w-full place-items-center">
-            {/* Free Trial Card */}
+        
             <motion.div
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, y: 20 }}
@@ -65,7 +65,7 @@ const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
               </div>
             </motion.div>
 
-            {/* 1 Month Plan Card */}
+    
             <motion.div
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, y: 20 }}
@@ -102,14 +102,14 @@ const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
         </div>
       </section>
 
-      {/* Call to Action */}
+  
       <motion.div
         className="bg-blue-600 py-12 sm:py-16 px-6 sm:px-12 text-center mt-12 mx-4 rounded-xl shadow-lg"
         initial={{ opacity: 0, scale: 0.9 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.7 }}
       >
-        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+        <h2 className="text-2xl sm:text-2xl font-bold text-white mb-4">
           Say hello to a stress-free life 😊
         </h2>
         <p className="text-white mb-6 text-base sm:text-lg">
@@ -124,12 +124,12 @@ const Pricing: React.FC<PricingProps> = ({ setModalOpen }) => {
         </button>
       </motion.div>
 
-      {/* Video Section */}
+  
       <div className="py-12 sm:py-16 px-4 sm:px-6 lg:px-20">
         <div className="mb-8 text-center text-xl sm:text-2xl font-semibold text-blue-800">
           Why You Need a Chatbot
         </div>
-        <div className="relative w-full max-w-5xl mx-auto aspect-video sm:aspect-video">
+        <div className="relative w-full max-w-5xl mx-auto aspect-video sm:aspect-video h-[50vh]">
           <iframe
             src="https://www.youtube.com/embed/sNkEy48ZwpQ"
             title="Top 9 reasons why you should use a Chatbot"
